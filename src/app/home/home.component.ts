@@ -2,20 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-weather',
-  templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
-export class WeatherComponent implements OnInit {
-  weathers: any;
+export class HomeComponent implements OnInit {
+  registerMode: any = false;
+
+  values: any;
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {}
+ 
+  registerToggle() {
+    this.registerMode = true;
+  }
+
+  cancelRegisterMode(registerMode: boolean){
+    this.registerMode = registerMode;
+  }
 
   getValues() {
     this.http.get('http://localhost:5000/api/weatherforecast').subscribe(
       (response) => {
-        this.weathers = response;
+        this.values = response;
       },
       (error) => {
         console.log(error);
